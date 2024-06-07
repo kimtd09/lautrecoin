@@ -1,0 +1,6 @@
+<select name="date_select" id="dateMenu">
+    <option {{selectedDateId|default() == null ? "selected" : "" }}></option>
+    <option value=1 {{selectedDateId|default() == 1 ?  "selected" : "" }}>Moins d'une journée</option>
+    <option value=7 {{selectedDateId|default() == 7 ?  "selected" : "" }}>Moins d'une semaine</option>
+    <option value=30 {{selectedDateId|default() == 30 ?  "selected" : "" }}>Moins d'un mois</option>
+</select>

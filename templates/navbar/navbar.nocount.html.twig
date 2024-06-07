@@ -1,0 +1,12 @@
+<div class="mynavbar">
+    {% include 'navbar/_topbar.html.twig' %}
+    {{
+        render(controller(
+            'App\\Controller\\CategoryController::categoriesBar'
+        ))    
+    }}
+</div>
+<div class="d-flex justify-content-between w-100">
+    {# {% include 'navbar/_icons.twig' %} #}
+</div>
+

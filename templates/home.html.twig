@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block main %}
+<!-- main container for product cards -->
+<div class="cards-container justify-content-center">
+    <!-- Pagination (top) -->
+    {% include 'pagination/pagination.html.twig' %}
+
+    <!-- Product Cards -->
+    <div class="w-100 d-flex flex-wrap justify-content-center mb-4" style="gap: 1rem;">
+        {% for product in products %}
+            {% include 'product/partials/_card.html.twig' %}
+        {% endfor %}
+    </div>
+
+    <!-- Pagination (bottom) -->
+    {% include 'pagination/pagination.html.twig' %}
+</div>
+<!-- end of main container -->
+
+<!-- Modal for new product added -->
+
+<!-- deprecated -->
+{% if productAdded|default() != "" %}
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="false" style="background-color: rgba(34, 40, 49, 0.8); display: block; opacity: 1;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{productAdded.title}}</h5>
+            <button id="modalCloseButton1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-target="#exampleModal"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex gap-4">
+            <img src="{{productAdded.getImageSmallUrl}}" alt="" class="object-fit-cover img-thumbnail" style="height: 100px; width:100px"></img>
+            <span class="m-auto w-100">Cette annonce a bien été ajoutée!</span>
+            <span class="m-auto w-100"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="modalCloseButton2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <div><a class="btn btn-info text-white" href="{{ path('product.get', {'id':productAdded.id} ) }}">Voir l'annonce</a></div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    modal = document.getElementById("modal");
+    button1 = document.getElementById('modalCloseButton1');
+    button2 = document.getElementById('modalCloseButton2');
+
+    function modalOff() {
+    modal.style = "opacity: 0; display: none;";
+    }
+
+    button1.addEventListener("click", modalOff)
+    button2.addEventListener("click", modalOff)
+</script>
+{% endif %}
+
+{% endblock %}

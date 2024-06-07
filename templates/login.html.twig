@@ -1,0 +1,14 @@
+{% extends 'base.verystrict.html.twig' %}
+
+{% block main %}
+<div class="login">
+  <h2>Connexion à votre compte</h2>
+  {{form(form)}}
+
+  <div>
+  <span>pas de compte?</span>
+  <a href="/register">Créer un compte</a>
+  </div>
+</div>
+
+{% endblock %}

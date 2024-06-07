@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    // max-width: var(--maxwidth);
+    min-width: 300px;
+    width: 100%;
+    height: 100vh;
+    // margin: auto;
+}
+
+main {
+    display: flex;
+    gap: 0.5rem;
+    max-width: var(--maxwidth);
+    margin: 0 1rem;
+}
+
+
+a {
+    text-decoration: none; 
+}
+
+.cards-container {
+    @include box1;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem 0;
+}
+
+.mycard {
+    display: flex;
+    flex-direction: column;
+    width: 15rem;
+    height: 20rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 3px solid rgba(0, 0, 0, 0);
+
+    &:hover {
+        cursor: pointer;
+        border: 3px solid var(--color-logo);
+    }
+
+    .image {
+        &, img {
+            height: 140px;
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            animation-name: imageloading;
+            animation-duration: 0.5s;
+        }
+    }
+
+    .date {
+        display: block;
+    }
+}
+
+.details {
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+.password_highlighted {
+    font-weight: bold !important;
+    color: green !important;
+    opacity: 1 !important;
+}
+
+.favorite-svg {
+    width: 30px;
+    height: 30px;
+
+    &:hover {
+        cursor: pointer;
+        stroke: red;
+        g {
+            path  {
+                fill: red;
+            }
+        }
+    }
+}

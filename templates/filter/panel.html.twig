@@ -1,0 +1,256 @@
+<!-- Filters Panel -->
+<div class="filters rounded">
+    <div class="title text-secondary-emphasis text-center border-bottom">Filtrer par</div>
+    <form action="/filter">
+        <div class="container d-flex flex-column justify-content-start">
+            <!-- Price -->
+            <div class="row">
+                <a class="text-dark-emphasis" data-bs-toggle="collapse" href="#collapsePrice" role="button" aria-expanded="false" aria-controls="collapsePrice">
+                    <div class="d-flex gap-1" id="priceFilter">
+                        <span>Prix</span>
+                        <div>
+                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)" id="priceFilterChevron" class="{{ app.request.query.get('min_price')|default() ? 'rotate' : app.request.query.get('max_price')|default() ? 'rotate' : '' }}">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M17 18L12 13L7 18M17 11L12 6L7 11" stroke="#000000" stroke-width="1" ></path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+                <div class={{app.request.query.get('min_price')|default() ? '"collapse\ show"' : app.request.query.get('max_price')|default() ? '"collapse\ show"' : "collapse"}} id="collapsePrice">
+                    <div class="">
+                        <div>Min</div>
+                        <input id="minPrice" type="number" min="0" name="min_price" value={{app.request.query.get('min_price')|default() ? app.request.query.get('min_price') : ""}}></input>
+                        <div>Max</div>
+                        <input id="maxPrice" type="number" name="max_price" value={{app.request.query.get('max_price')|default() ? app.request.query.get('max_price') : '""'}}></input>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-top"></div>
+
+            <!-- Region -->
+            <div class="row">
+                <a class="text-dark-emphasis" data-bs-toggle="collapse" href="#collapseRegion" role="button" aria-expanded="false" aria-controls="collapseRegion">
+                    <div class="d-flex gap-1" id="regionFilter">
+                        <span>Région</span>
+                        <div>
+                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)" id="regionFilterChevron" class="{{ app.request.query.get('region_select')|default() ? 'rotate' : '' }}">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M17 18L12 13L7 18M17 11L12 6L7 11" stroke="#000000" stroke-width="1" ></path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+                <div class={{app.request.query.get('region_select')|default() ? '"collapse\ show"' : "collapse"}} id="collapseRegion">
+                    <div>
+                        {{
+                            render(controller(
+                                'App\\Controller\\FilterController::regionList', {selectedRegionId: app.request.query.get('region_select')}
+                            ))
+                        }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-top"></div>
+
+            <!-- Departments -->
+            <div class="row">
+                <a class="text-dark-emphasis" data-bs-toggle="collapse" href="#collapseDepartment" role="button" aria-expanded="false" aria-controls="collapseDepartment">
+                    <div class="d-flex gap-1" id="departmentFilter">
+                        <span>Département</span>
+                        <div>
+                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)" id="departmentFilterChevron" class="{{ app.request.query.get('department_select')|default() ? 'rotate' : '' }}">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M17 18L12 13L7 18M17 11L12 6L7 11" stroke="#000000" stroke-width="1" ></path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+                <div class={{app.request.query.get('department_select')|default() ? '"collapse\ show"' : "collapse"}} id="collapseDepartment">
+                    <div>
+                        {{
+                            render(controller(
+                                'App\\Controller\\FilterController::departmentList', {selectedDepartmentId: app.request.query.get('department_select')}
+                            ))
+                        }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-top"></div>
+
+            <!-- Date -->
+            <div class="row">
+                <a class="text-dark-emphasis" data-bs-toggle="collapse" href="#collapseDate" role="button" aria-expanded="false" aria-controls="collapseDate">
+                    <div class="d-flex gap-1" id="dateFilter">
+                        <span>Datant de</span>
+                        <div>
+                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)" id="dateFilterChevron" class="{{ app.request.query.get('date_select')|default() ? 'rotate' : '' }}">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M17 18L12 13L7 18M17 11L12 6L7 11" stroke="#000000" stroke-width="1" ></path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+                <div class={{app.request.query.get('date_select')|default() ? '"collapse\ show"' : "collapse"}} id="collapseDate">
+                    <div>
+                        {{
+                            render(controller(
+                                'App\\Controller\\FilterController::dateList', {selectedDateId: app.request.query.get('date_select')}
+                            ))
+                        }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-top"></div>
+
+            <!-- category filter -->
+            {% if app.request.get('id') %}
+                        <div class="d-none"><input id="category" type="number" value={{app.request.get('id')}} name="category">{{app.request.get('id')}}</div>
+                        <div class="text-dark-emphasis d-flex justify-content-between"> Catégorie                             
+                            <span id="categoryDeleteButton">
+                                <svg width="20px" height="20px" viewBox="0 0 1024 1024" fill="#606470" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="1"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M512 897.6c-108 0-209.6-42.4-285.6-118.4-76-76-118.4-177.6-118.4-285.6 0-108 42.4-209.6 118.4-285.6 76-76 177.6-118.4 285.6-118.4 108 0 209.6 42.4 285.6 118.4 157.6 157.6 157.6 413.6 0 571.2-76 76-177.6 118.4-285.6 118.4z m0-760c-95.2 0-184.8 36.8-252 104-67.2 67.2-104 156.8-104 252s36.8 184.8 104 252c67.2 67.2 156.8 104 252 104 95.2 0 184.8-36.8 252-104 139.2-139.2 139.2-364.8 0-504-67.2-67.2-156.8-104-252-104z" fill=""></path><path d="M707.872 329.392L348.096 689.16l-31.68-31.68 359.776-359.768z" fill=""></path><path d="M328 340.8l32-31.2 348 348-32 32z" fill=""></path></g></svg>
+                            </span>
+                        </div>
+
+                            <div class="cat" id="categoryText">
+                            {{
+                                render(controller(
+                                    'App\\Controller\\CategoryController::getName', {categoryId: app.request.get('id')}
+                                ))
+                            }}
+                            </div>
+
+                        <div class="border-top"></div>
+            {% elseif app.request.query.get('category')  %}
+                        <div class="d-none"><input id="category" type="number" value={{app.request.query.get('category')}} name="category"></div>
+                        <div class="text-dark-emphasis d-flex justify-content-between"> Catégorie:
+                            <span id="categoryDeleteButton">
+                                <svg width="20px" height="20px" viewBox="0 0 1024 1024" fill="#606470" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="1"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M512 897.6c-108 0-209.6-42.4-285.6-118.4-76-76-118.4-177.6-118.4-285.6 0-108 42.4-209.6 118.4-285.6 76-76 177.6-118.4 285.6-118.4 108 0 209.6 42.4 285.6 118.4 157.6 157.6 157.6 413.6 0 571.2-76 76-177.6 118.4-285.6 118.4z m0-760c-95.2 0-184.8 36.8-252 104-67.2 67.2-104 156.8-104 252s36.8 184.8 104 252c67.2 67.2 156.8 104 252 104 95.2 0 184.8-36.8 252-104 139.2-139.2 139.2-364.8 0-504-67.2-67.2-156.8-104-252-104z" fill=""></path><path d="M707.872 329.392L348.096 689.16l-31.68-31.68 359.776-359.768z" fill=""></path><path d="M328 340.8l32-31.2 348 348-32 32z" fill=""></path></g></svg>
+                            </span>
+                        </div>
+
+                            <div class="cat" id="categoryText">
+                            {{
+                                render(controller(
+                                    'App\\Controller\\CategoryController::getName', {categoryId: app.request.query.get('category')}
+                                ))
+                            }}
+                            </div>
+
+                        <div class="border-top"></div>
+            {% endif %}
+
+            <!-- keyword filter -->
+            {% if app.request.get('keyword') %}
+                <div class="d-none"><input id="keyword" type="text" value="{{app.request.get('keyword')}}" name="keyword"></div>
+                <div class="text-dark-emphasis">Mot-clé: <div class="keyword" id="keywordText">{{app.request.get('keyword')}}</div></div>
+                <div class="border-top"></div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary w-content m-auto text-white">Appliquer</button>
+            <div id="reset" class="button btn btn-secondary w-content m-auto">Effacer</div>
+        </div>
+    </form>
+
+</div>
+
+{% block javascripts %}
+    <script>
+        var minPrice = document.getElementById("minPrice");
+        var maxPrice = document.getElementById("maxPrice");
+        var region = document.getElementById("regionMenu");
+        var department = document.getElementById("departmentMenu");
+        var date = document.getElementById("dateMenu")
+        var reset = document.getElementById("reset")
+        var category = document.getElementById("category")
+        var categoryText = document.getElementById("categoryText")
+        var keyword = document.getElementById("keyword")
+        var keywordText = document.getElementById("keywordText")
+
+        var invalidChars = ["-", "+", "e", "E"];
+
+        replaceMinPrice = (e) => { 
+            e.target.value = e.target.value.replace(/[e\+\-]/gi, "")
+            if(Number(e.target.value) > Number(maxPrice.value)) {
+                if(maxPrice.value != "") {
+                    maxPrice.value = e.target.value
+                }
+            }
+        }
+
+        replaceMaxPrice = (e) => {
+            e.target.value = e.target.value.replace(/[e\+\-]/gi, "")
+            if(Number(e.target.value) < Number(minPrice.value)) {
+                minPrice.value = e.target.value
+            }
+        }
+        blockMinInput = (e) => { if (invalidChars.includes(e.key) ) { e.preventDefault();} }
+        blockMaxInput = (e) => { if (invalidChars.includes(e.key)) { e.preventDefault();} }
+
+        minPrice.addEventListener("input", replaceMinPrice);
+        minPrice.addEventListener("keydown", blockMinInput);
+        maxPrice.addEventListener("input", replaceMaxPrice);
+        maxPrice.addEventListener("keydown", blockMaxInput);
+
+        region.addEventListener("change", (e) => {
+            department.selectedIndex = 0  
+        })
+
+        department.addEventListener("change", (e) => {
+            region.selectedIndex = 0  
+        })
+
+
+        var priceFilterChevron = document.getElementById("priceFilterChevron")
+        document.getElementById("priceFilter").addEventListener("click", (e) => {
+            priceFilterChevron.classList.toggle("rotate")
+        } )
+
+        var regionFilterChevron = document.getElementById("regionFilterChevron")
+        document.getElementById("regionFilter").addEventListener("click", (e) => {
+            regionFilterChevron.classList.toggle("rotate")
+        } )
+
+        var departmentFilterChevron = document.getElementById("departmentFilterChevron")
+        document.getElementById("departmentFilter").addEventListener("click", (e) => {
+            departmentFilterChevron.classList.toggle("rotate")
+        } )
+
+        var dateFilterChevron = document.getElementById("dateFilterChevron")
+        document.getElementById("dateFilter").addEventListener("click", (e) => {
+            dateFilterChevron.classList.toggle("rotate")
+        } )
+
+        reset.addEventListener("click", () => {
+            minPrice.value=0
+            minPrice.max=null
+            maxPrice.value=0
+            maxPrice.min=null
+            region.value=0
+            department.value=0
+            date.value=0
+            if (category) { category.value = null }
+            if (categoryText) { categoryText.style.display = 'none' }
+            if(keyword) { keyword.value=null }
+            if(keywordText) { keywordText.style.display = 'none' }
+        })
+
+        document.getElementById("categoryDeleteButton")?.addEventListener(("click"), () => {
+            category.value = null
+            categoryText.style.display = 'none'
+            document.getElementById("categoryDeleteButton").style.display = 'none'
+        })
+
+    </script>
+{% endblock %}

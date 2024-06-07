@@ -1,0 +1,11 @@
+<!-- List of all categories -->
+<ul class="categories">
+    {% for cat in categories %}
+        <a href="/category/{{cat.id}}" class="text-dark-emphasis">
+            <!-- in a div for css underline style -->
+            <div class="{{ category|default() == cat.id ? 'selected' : "" }}">
+                {{cat.name}}
+            </div>
+        </a>
+    {% endfor %}
+</ul>

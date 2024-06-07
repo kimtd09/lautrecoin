@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{found}} annonces trouvées{% endblock %}
+
+{% block main %}
+    <div class="cards-container">
+        {% if found > 12 %}
+            {% include 'pagination/_pagination.filters.html.twig' %}
+        {% endif %}
+
+        <div class="d-flex flex-wrap gap-3 justify-content-center">
+
+            {% for product in products %}
+                {% include 'product/partials/_card.html.twig' %}
+            {% endfor %}
+            {% if found == 0 %}
+            <h5>Aucune annonce trouvée</h5>
+            {% endif %}
+        </div>
+
+        {% if found > 12 %}
+            {% include 'pagination/_pagination.filters.html.twig' %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.strict.html.twig' %}
+
+{% block main %}
+<div class="w-100 ">
+    <h2 class="text-center mt-3 mb-5">Liste des annonces de l'utilisateur sélectionné</h2>
+    <div class="d-flex gap-3 flex-wrap">
+
+    {% for product in products %}
+        {% include 'product/partials/_card.html.twig' %}
+    {% endfor %}
+    </div>
+<div>
+{% endblock %}

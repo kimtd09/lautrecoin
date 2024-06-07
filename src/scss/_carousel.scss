@@ -1,0 +1,15 @@
+:root{
+    // --carousel-background: #ececec;
+    --carousel-background:#e0e0e0;
+}
+
+.carousel-product {
+
+    background-color: var(--carousel-background);
+
+    img {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

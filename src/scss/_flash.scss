@@ -1,0 +1,17 @@
+.flash-error {
+    @include flashbox;
+    color: var(--flash-error-txt);
+    background-color: var(--flash-error-bg);
+}
+
+.flash-warning {
+    @include flashbox;
+    color: var(--flash-warning-txt);
+    background-color: var(--flash-warning-bg);
+}
+
+.flash-info {
+    @include flashbox;
+    color: var(--flash-info-txt);
+    background-color: var(--flash-info-bg);
+}

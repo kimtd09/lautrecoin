@@ -1,0 +1,149 @@
+{% extends 'base.nofilters.html.twig' %}
+
+{% block main %}
+
+    <section class="details bg-light m-auto w-100 rounded overflow-hidden">
+
+    <div class="card w-100">
+
+    {# Bootstrap Carousel #}
+    {% if product.imagenumber > 0 %}
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"  style="height: 400px;">
+        <div class="carousel-indicators">
+            {% for item in product.images %}
+                {% if loop.first %}
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                {% else %}
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" aria-label="Slide {{ loop.index0 }}"></button>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="carousel-inner w-100 h-100 carousel-product">
+                {% for item in product.images %}
+                    {% if loop.first %}
+                        <div class="carousel-item active h-100 w-100">
+                            <img src="{{ item.url }}" class="d-block h-100 object-fit-scale m-auto" alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        </div>
+                    {% else %}
+                        <div class="carousel-item h-100 w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <img src="{{ item.url }}" class="d-block h-100 object-fit-scale m-auto" alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        </div>
+                    {% endif %}
+                    
+                {% endfor %}
+        </div>
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    {% endif %}
+  <div class="card-body d-flex justify-content-between align-items-center">
+    <h2 class="card-title">{{product.title}}</h2>
+    <!-- Heart svg -->
+    <svg class="favorite-svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.6799999999999997"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z" fill="#ffffff"></path> </g></svg>
+    </div>
+    {# <h1>{{product.title}}</h1> #}
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{product.price|format_currency('EUR', locale='fr')}}</li>
+        <li class="list-group-item text-muted" style="font-size: 0.9rem;">Vendu par <a href="{{path('app_sourceuser', {'id' : product.getsourceuser.id}) }}">{{product.username}}</a> ({{product.sourceuser.getproducts|length}} annonce{{product.sourceuser.getproducts|length > 1 ? "s": ""}})</li>
+        <li class="list-group-item text-muted" style="font-size: 0.9rem;">Annonce originelle : <a href="https://www.leboncoin.fr/{{product.category.path}}/{{product.listid}}.htm" target="_blank">https://www.leboncoin.fr/{{product.category.path}}/{{product.listid}}.htm</a></li>
+        <li class="list-group-item text-muted" style="font-size: 0.9rem;">Publiée le {{product.publishdate|date('d.m.y')}} à {{product.publishdate|date('H:i')}}</li>
+        <li class="list-group-item text-muted" style="font-size: 0.9rem;">{{product.region.name}} > {{product.department == null ? "" : product.department.name ~ " > " }}{{product.city}} ({{product.zipcode}})</li>
+    </ul>
+
+    <div class="card-body" style="min-height: 300px;">{{product.description|nl2br}}</div>
+
+    <!--
+    <div class="d-flex justify-content-end gap-2 p-3">
+        <div></div>
+        <button type="button" class="btn btn-danger d-bloc" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 8rem;">
+        supprimer
+        </button>
+    </div>
+    -->
+</div>
+<!-- end of card -->
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #222831;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{product.title}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex gap-4">
+            <img src="{{product.getImageSmallUrl}}" alt="" class="object-fit-cover img-thumbnail" style="height: 100px; width:100px"></img>
+            <span class="m-auto w-100">Etes-vous sûr de vouloir supprimer cette annonce?</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div><a class="btn btn-danger" href="{{ path('product.delete', {'id':product.id} ) }}">supprimer</a></div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Carousel Modal -->
+
+    <!-- Modal -->
+ <div class="modal fade p-3 h-100" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-carousel h-100">
+    <div class="modal-content h-100">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{product.title}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body h-100 overflow-auto">
+            {% if product.imagenumber > 0 %}
+            <div id="modalcarouselExampleControls" class="carousel slide h-100 w-100 rounded" data-bs-ride="carousel"  style="height: 100%">
+                <div class="carousel-indicators h-100">
+                    {% for item in product.images %}
+                        {% if loop.first %}
+                            <button type="button" data-bs-target="#modalcarouselExampleControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        {% else %}
+                            <button type="button" data-bs-target="#modalcarouselExampleControls" data-bs-slide-to="{{ loop.index0 }}" aria-label="Slide {{ loop.index0 }}"></button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner w-100 h-100">
+                        {% for item in product.images %}
+                            {% if loop.first %}
+                                <div class="carousel-item active h-100 w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <img src="{{ item.url }}" class="d-block w-100 h-100 object-fit-scale" alt="">
+                                </div>
+                            {% else %}
+                                <div class="carousel-item h-100 w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <img src="{{ item.url }}" class="d-block w-100 h-100 object-fit-scale" alt="">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                </div>
+                
+                <button class="carousel-control-prev" type="button" data-bs-target="#modalcarouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#modalcarouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+{% endblock %}

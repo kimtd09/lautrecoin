@@ -1,0 +1,6 @@
+<select name="region_select" id="regionMenu" class="filter-select">
+    <option value="" {{selectedRegionId|default() ? "" : "selected"}}></option> <!-- First option is null -->
+    {% for region in regions %}
+        <option value="{{region.id}}" {{selectedRegionId|default() == region.id ? "selected": ""}}>{{region.name}}</option>
+    {% endfor %}
+</select>

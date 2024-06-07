@@ -1,0 +1,7 @@
+<!-- Use render controller to access total count or filter count -->
+
+{{
+    render(controller(
+        'App\\Controller\\MainController::pagination', {'page': page, 'max' : max|default()}
+    ))    
+}}

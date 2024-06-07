@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{products|length}} annonces trouvées{% endblock %}
+
+{% block main %}
+    <div class="cards-container">
+        <div class="d-flex flex-wrap gap-3 justify-content-center">
+            {% include 'pagination/_pagination.html.twig' %}
+
+            {% for product in products %}
+                {% include 'product/partials/_card.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

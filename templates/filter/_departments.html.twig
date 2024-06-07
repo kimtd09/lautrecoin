@@ -1,0 +1,6 @@
+<select name="department_select" id="departmentMenu" class="filter-select">
+    <option value="" selected>  </option> <!-- First option is null -->
+    {% for department in departments %}
+        <option value="{{department.id}}" {{selectedDepartmentId|default() == department.id ? "selected": ""}}>{{ "(#{department.number}) #{department.name}" }}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,26 @@
+<div class="mynavbar">
+    {% include 'navbar/_topbar.html.twig' %}
+    
+    {{
+        render(controller(
+            'App\\Controller\\CategoryController::categoriesBar', {'category' : category|default()}
+        ))    
+    }}
+
+</div>
+
+<!-- Flash -->
+{% include 'navbar/_flash.html.twig' %}
+
+<div class="info-bar">
+    {# {% include 'navbar/_icons.twig' %} #}
+
+    {{ render(controller(
+        'App\\Controller\\ProductController::totalCount'
+    )) }}
+
+    {% if found|default() != null %}
+        <div>Annonces trouvées : {{ found }}</div>
+    {% endif %}
+</div>
+

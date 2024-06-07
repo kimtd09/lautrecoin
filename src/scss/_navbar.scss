@@ -1,0 +1,181 @@
+:root {
+    --topbar-heihght : 40px;
+    --categories-height: 3rem;
+    --navbar-background: white;
+}
+
+.mynavbar {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topbar {
+    width: 100%;
+    max-width: var(--maxwidth);
+    display: flex;
+
+    // & div > * {
+    //     border: 1px solid red;
+    // }
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+
+        &:hover {
+             * > path, circle {
+                stroke: var(--color-logo);
+            }
+        }
+    }
+
+    svg > * > path, circle { 
+        stroke: var(--color-navbar-svg);
+    }
+}
+
+.logo {
+    color: var(--color-logo);
+    padding: 0 0.5rem;
+}
+
+.categories {
+    z-index: 9;
+    display: flex;
+    position: sticky;
+    top: 90px;
+    background-color: var(--navbar-background);
+    flex-wrap: wrap;
+    list-style: none;
+    width: inherit;
+    max-width: var(--maxwidth);
+    height: var(--categories-height);
+    overflow: hidden;
+    justify-content: space-evenly;
+    padding: 0.5rem 0;
+    margin: 0;
+    border-top: 1px solid darkgray;;
+    border-bottom: 1px solid black;
+    
+    &:hover {
+        height: fit-content;
+    }
+
+    a {
+        display: inline;
+        font-size: 0.90rem;
+        padding: 0.3rem 0.95rem;
+
+        &:hover {
+            color: white !important;
+            background-color: var(--color-logo);
+
+            .selected {
+                border-color: transparent;
+            }
+        }
+
+        .selected {
+            border-bottom: 2px solid green;
+        }
+    }
+}
+
+.info-bar {
+    display: flex;
+    max-width: var(--maxwidth);
+    width: 100%;
+    justify-content: space-between;
+    font-size: medium;
+}
+
+.shortcuts {
+    z-index: 9;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: fit-content;
+    border-radius: 5px;
+    height: fit-content;
+    gap: 0.3rem;
+    background-color: var(--navbar-background);
+
+    position: sticky;
+    top: calc( var(--topbar-heihght) + var(--categories-height) );
+
+    div {
+        width: 1.6rem;
+        height: 1.6rem;
+        padding: 0.2rem;
+    
+        &:hover {
+            // width: 2.4rem;
+            // height: 2.4rem;
+            padding: 0;
+            transition-duration: 0.2s;
+
+            path {
+                stroke: red;
+
+            }
+        }
+    }
+
+    .selected {
+        svg g path {
+            stroke: green;
+        }
+    }
+}
+
+
+.velo {
+    &:hover {
+        svg g g g path:nth-child(2){
+            fill: red;
+        }
+    }
+}
+
+.veloselected {
+    svg g g g path:nth-child(2){
+        fill: green;
+    }
+}
+
+.elec{
+    &:hover {
+        svg g path {
+            stroke: none;
+            fill: red;
+        }
+    }
+}
+
+.elecselected {
+
+    svg g path {
+        fill: green;
+    }
+}
+
+.boat {
+    &:hover {
+        svg {
+            fill: red;
+        }
+    }
+}
+
+.boatselected {
+    svg {
+        fill: green;
+    }
+}
+
+
+
